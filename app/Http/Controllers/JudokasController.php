@@ -98,7 +98,7 @@ class JudokasController extends Controller
             '2008' => '2008', '2009' => '2009', '2010' => '2010', '2011' => '2011' ],
             'gender' => [$judoka->gender => $judoka->gender, 'vyras' => 'vyras', 'moteris' => 'moteris']
         );
-        if(auth()->user->id !== $judoka->user_id) {
+        if(auth()->user()->id !== $judoka->user_id) {
             return redirect('home')->with('error', 'Pirmiausia prisijunkite');
         }
 

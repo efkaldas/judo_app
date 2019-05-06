@@ -14,11 +14,11 @@ class AdminSeeder extends Seeder
         \App\User::create([
             'firstname' => 'Admin',
             'lastname' => 'Admin',
-            'club' => 'Admin',
-            'phone' => 'admin@admin.com',
+            'club' => 'Administrator',
+            'phone' => '864361385',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('verysafepassword'),
+            'password' => bcrypt('eevaldass1'),
             'admin' => 1,
             'approved_at' => now(),
         ]);
