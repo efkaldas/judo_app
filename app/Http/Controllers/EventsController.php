@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
+use App\Group;
+
+
 
 class EventsController extends Controller
 {
@@ -23,7 +27,20 @@ class EventsController extends Controller
      */
     public function create()
     {
-        //
+  /*      $event = new Event;
+        $event->name = 'U-15';
+        $event->year_from = '2018';
+        $event->year_to = '2018';
+
+        $event->save();
+
+       // $kategory = Kategory::find(1);
+      //  $event->kategories()->attach($kategory);
+        $group = Group::find(1);
+        $event->groups()->attach($group);
+
+        return 'Success';
+        */
     }
 
     /**

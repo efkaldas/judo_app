@@ -29,7 +29,7 @@
             {{Form::select('gender',$ports['gender'],null,['class' => 'form-control'])}}
         </div>
         {{Form::hidden('_method', 'PUT')}}
-        {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+        {{Form::submit('Patvirtinti', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}
 </div>
     

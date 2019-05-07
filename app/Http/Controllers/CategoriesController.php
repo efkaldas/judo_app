@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Group;
 use App\Category;
 
-class GroupsController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,20 +25,6 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        $group = new Group;
-        $group->name = 'U-15';
-        $group->gender = 'vyras';
-        $group->year_from = '2018';
-        $group->year_to = '2018';
-
-        $group->save();
-
-       // $kategory = Kategory::find(1);
-      //  $group->kategories()->attach($kategory);
-        $category = Category::find(1);
-        $group->categories()->attach($category);
-
-        return 'Success';
     }
 
     /**

@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class Category extends Model
 {
     public $timestamps = false;
 
-    public function categories()
+    public function groups()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Group::class);
     }
 }
