@@ -8,4 +8,9 @@ class Event extends Model
 {
     public $timestamps = false;
 
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
 }

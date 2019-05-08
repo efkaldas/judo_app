@@ -27,20 +27,21 @@ class EventsController extends Controller
      */
     public function create()
     {
-  /*      $event = new Event;
-        $event->name = 'U-15';
-        $event->year_from = '2018';
-        $event->year_to = '2018';
+        $event = new Event;
+        $event->name = 'lalalala';
+        $event->place = 'lalalala';
+        $event->date = '2018/03/04';
+        $event->description = 'lalalala';
+
 
         $event->save();
 
-       // $kategory = Kategory::find(1);
-      //  $event->kategories()->attach($kategory);
         $group = Group::find(1);
         $event->groups()->attach($group);
 
-        return 'Success';
-        */
+        $groups = Group::all();
+        return view('events.create')->with('groups', $groups);
+        
     }
 
     /**

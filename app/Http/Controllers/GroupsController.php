@@ -15,7 +15,8 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        //
+        $groups = Group::all();
+        return view('groups.index')->with('groups', $groups);
     }
 
     /**
@@ -25,20 +26,12 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        $group = new Group;
-        $group->name = 'U-15';
-        $group->gender = 'vyras';
-        $group->year_from = '2018';
-        $group->year_to = '2018';
+        $array = array(
+            'gender' => [null => 'pasirinkite lytį', 'vyras' => 'vyras', 'moteris' => 'moteris']
+        );
 
-        $group->save();
-
-       // $kategory = Kategory::find(1);
-      //  $group->kategories()->attach($kategory);
-        $category = Category::find(1);
-        $group->categories()->attach($category);
-
-        return 'Success';
+        $categories = Category::all();
+        return view('groups.create')->with(['categories'=> $categories, 'ports'=> $array]);
     }
 
     /**
@@ -49,7 +42,36 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'gender' => 'required',
+            'year_from' => 'required',
+            'year_to' => 'required',
+            'category' => 'required'
+        ]);
+    //    $checked = in_array($category->id, $checkeds) ? true : false;
+        $group = new Group;
+        $group->name = $request->input('name');
+        $group->gender = $request->input('gender');
+        $group->year_from = $request->input('year_from');
+        $group->year_to = $request->input('year_to');
+        //$group->categories()->sync(Input::get('category'));
+        $a=$request->input('category');
+        $cat = Category::find($a);
+        $group->save();
+        $group->categories()->attach($cat);
+      //  $group->categories()->attach([5,3]);
+      //  $group->categories()->sync(array(1 => array('id' => true)));
+
+
+        $group->save();
+
+       // $kategory = Kategory::find(1);
+      //  $group->kategories()->attach($kategory);
+    //    $category = Category::find(1);
+     //   $group->categories()->attach($category);
+        
+     return redirect('/groups')->with('success', 'Grupė sėkmingai sukurta!');
     }
 
     /**
