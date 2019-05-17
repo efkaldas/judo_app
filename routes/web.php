@@ -30,5 +30,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/{user_id}/approve', 'UserController@approve')->name('admin.users.approve');
     });
 Route::resource('groups', 'GroupsController');
-Route::get('events/create', 'EventsController@create')->name('event.create');
+Route::resource('events', 'EventsController');
+Route::get('events/{id}/groups/{group}', 'GroupsController@show');
+Route::put('events/{id}/groups/{group}/{judoka}', 'GroupsController@update');
+Route::get('groupsInfo/{id}', 'GroupsController@showCat');
+Route::get('events/{event}/competitors/{id}', 'CompetitorsController@show');
 });

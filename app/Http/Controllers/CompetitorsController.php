@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Event;
 use App\Group;
 use App\Category;
+use App\User;
+use App\Event;
+use App\Judoka;
 
 
-
-class EventsController extends Controller
+class CompetitorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +19,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
-        return view('events.index')->with('events', $events);
+        //
     }
 
     /**
@@ -29,8 +29,7 @@ class EventsController extends Controller
      */
     public function create()
     {
-        $groups = Group::all();
-        return view('events.create')->with('groups', $groups);       
+        //
     }
 
     /**
@@ -41,39 +40,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'place' => 'required',
-            'date' => 'required',
-            'description' => 'required',
-            'group' => 'required'
-        ]);
-        $event = new Event;
-        $event->name = $request->input('name');
-        $event->place = $request->input('place');
-        $event->date = $request->input('date');
-        $event->description = $request->input('description');
-        $a=$request->input('group');
-        $cat = Group::find($a);
-        $event->save();
-        $event->groups()->attach($cat);
-
-
-        $event->save();
-
-        
-     return redirect('/events')->with('success', 'Grupė sėkmingai sukurta!');
-    }
-
-    public function get_export()
-    {
-        $table = Cpmreport::all();
-        $file = fopen('Output.csv', 'w');
-        foreach ($table as $row) {
-            fputcsv($file, $row->to_array());
-        }
-        fclose($file);
-        return Redirect::to('consolidated');
+        //
     }
 
     /**
@@ -82,10 +49,11 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($event,$id)
     {
         $event = Event::find($id);
-        return view('events.show')->with('event', $event);
+
+        return view('competitors.show')->with('event',$event);
     }
 
     /**

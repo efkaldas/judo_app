@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Group;
 use App\Category;
+use App\User;
+use App\Event;
+use App\Judoka;
 
 class GroupsController extends Controller
 {
@@ -49,27 +53,19 @@ class GroupsController extends Controller
             'year_to' => 'required',
             'category' => 'required'
         ]);
-    //    $checked = in_array($category->id, $checkeds) ? true : false;
         $group = new Group;
         $group->name = $request->input('name');
         $group->gender = $request->input('gender');
         $group->year_from = $request->input('year_from');
         $group->year_to = $request->input('year_to');
-        //$group->categories()->sync(Input::get('category'));
         $a=$request->input('category');
         $cat = Category::find($a);
         $group->save();
         $group->categories()->attach($cat);
-      //  $group->categories()->attach([5,3]);
-      //  $group->categories()->sync(array(1 => array('id' => true)));
 
 
         $group->save();
 
-       // $kategory = Kategory::find(1);
-      //  $group->kategories()->attach($kategory);
-    //    $category = Category::find(1);
-     //   $group->categories()->attach($category);
         
      return redirect('/groups')->with('success', 'Grupė sėkmingai sukurta!');
     }
@@ -80,9 +76,29 @@ class GroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $group)
     {
-        //
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id)->judokas();
+        $event = Event::find($id);
+        $groups = $event->groups()->find($group);
+        $list = $groups->categories->pluck('name','id');
+        $judokas = $user->where('gender', '=', $groups->gender)->where('birthyear', '<=', $groups->year_to)
+        ->where('birthyear', '>=', $groups->year_from)->orderBy('lastname', 'asc')->paginate(7);
+        $categories = $groups->categories;
+        return view('groups.show')->with(['judokas' => $judokas, 'group' => $groups, 'ports' => $list, 'event' => $event,
+        'categories' => $categories]);
+    }
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCat($id)
+    {
+        $group = Group::find($id);
+        return view('groups.showCat')->with('group', $group);
     }
 
     /**
@@ -103,10 +119,23 @@ class GroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $group, $judoka)
     {
-        //
+        $event = Event::find($id);
+        $groups = $event->groups()->find($group);
+        $category = $request->input('category');
+        $categoryf = $groups->categories()->find($category);
+        $judokas = Judoka::find($judoka);
+        $categoryf->events()->attach($categoryf->id, ['event_id' => $event->id, 'judoka_id' => $judokas->id]); 
+      //  $categoryf->judokas()->sync($judokas);
+       // $event->$groups->$categoryf;
+
+
+       // $event->groups()->categories()->attach($judokas);
+
+        return redirect('/events/'.$id.'/groups/'.$group)->with('success', 'Sportininkas sėkmingai užregistruotas!');
     }
+    
 
     /**
      * Remove the specified resource from storage.
