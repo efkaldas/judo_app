@@ -17,6 +17,9 @@
                   </button>
                 </h5>
               </div>
+              <div align="center">
+                <a href="{{ route('competitors.excel') }}" class="btn btn-success">Export to Excel</a>
+              </div>
 
           
               <div id={{$group->name}} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -36,7 +39,7 @@
                                   </div>
                                   <div id={{$i}} class="collapse" aria-labelledby="headingTwo" data-parent="#accordionn">
                                         <div class="card-body">
-                                          @if ($category->events->find($event->id) &&  count($category->judokas) > 0)
+                                          @if (count($category->judokas) > 0)
                                           <table id="aaa" class="table table-striped">
                                               <thead align="center"class="thead-dark">
                                                 <tr>
@@ -52,7 +55,7 @@
                                                 <?php $b = 1;
                                                 ?>
                                                   
-                                              @foreach ($category->judokas as $judoka)
+                                              @foreach ($event->judokas as $judoka)
                                               <tr>
                                                 @if ($judoka->events->find($event->id))
                                                   
@@ -89,15 +92,7 @@
         </div>
     </div>
         @endforeach
-    @foreach ($event->groups as $group)
-    <p>{{$group->name}}</p>
-    @foreach ($group->categories as $category)
-    <p>{{$category->name}}</p>
-    @foreach ($category->judokas as $judoka)
-    <p>{{$judoka->lastname}}</p>
-    @endforeach
-    @endforeach
-    @endforeach
+
 
 
 @endsection

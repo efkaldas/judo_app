@@ -18,7 +18,7 @@ class Judoka extends Model
     }
     public function categories()
     {
-        return $this->belongsToMany('App\Category', 'category_event_judoka')->withPivot('category_id'); 
+        return $this->belongsTo(Category::class); 
     }
     public function events()
     {

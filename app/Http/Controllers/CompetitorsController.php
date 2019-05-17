@@ -8,6 +8,8 @@ use App\Category;
 use App\User;
 use App\Event;
 use App\Judoka;
+use Excel;
+use App\Exports\CompetitorsExport;
 
 
 class CompetitorsController extends Controller
@@ -51,10 +53,16 @@ class CompetitorsController extends Controller
      */
     public function show($event,$id)
     {
-        $event = Event::find($id);
+        $eventt = Event::find($event);
 
-        return view('competitors.show')->with('event',$event);
+        return view('competitors.show')->with('event',$eventt);
     }
+    function excel($id)
+    {
+
+            return Excel::download(new CompetitorsExport($id), 'users.xlsx');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

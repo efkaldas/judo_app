@@ -35,4 +35,6 @@ Route::get('events/{id}/groups/{group}', 'GroupsController@show');
 Route::put('events/{id}/groups/{group}/{judoka}', 'GroupsController@update');
 Route::get('groupsInfo/{id}', 'GroupsController@showCat');
 Route::get('events/{event}/competitors/{id}', 'CompetitorsController@show');
+
+Route::get('events/{event}/competitors/{id}', 'CompetitorsController@excel')->name('competitors.excel');
 });
