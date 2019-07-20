@@ -3,11 +3,6 @@
 @section('content')
 
     <h1>{{$group->name}}</h1>
-    @if (auth()->user()->admin)
-    <div class="text-right">
-        <a class="btn btn-dark btn-lg pull-right" href="judokas/create" role="button">Pridėti naują sportininką</a>
-    </div><br>
-    @endif
     @if (count($judokas) > 0)
     <table id="aaa" class="table table-striped">
         <thead align="center"class="thead-dark">
@@ -18,6 +13,7 @@
             <th scope="col">Gimimo metai</th>
             <th scope="col">Lytis</th>
             <th scope="col">Kategorija</th>
+            <th scope="col">Būsena</th>
             <th scope="col">Funkcijos</th>
           </tr>
         </thead>
@@ -32,35 +28,31 @@
             <td>{{$judoka->firstname}}</td>
             <td>{{$judoka->birthyear}}</td>
             <td>{{$judoka->gender}}</td>
-              @foreach ($categories as $category)
-                @if ($category->events->find($event->id) && $category->judokas->find($judoka->id))
-                <?php $or = TRUE; ?>
-                @break
-                @else
-                <?php $or = FALSE; ?>  
-                @endif
-              @endforeach
-              @if ($or == TRUE)
+            @if ($group->competitors->where('judoka_id', $judoka->id)->pluck('judoka_id')->first() == $judoka->id)
+                
+            <td>{{$group->competitors->where('judoka_id', $judoka->id)->first()->categories->name}}</td>
+            <td>Užregistruotas </td>
+            <td>
+            {!! Form::open(['action' => ['CompetitorsController@destroy', $event->id, $group->id, $group->competitors->where('judoka_id', $judoka->id)->first()->id], 
+            'method' => 'POST', 'class' => 'pull-right']) !!}
+              <a class="btn btn-success" href="{{$group->id}}/{{$group->competitors->where('judoka_id', $judoka->id)->first()->id}}/pdf"
+                 role="button">Spauzdinti</a> 
+            {{Form::hidden('_method', 'DELETE')}}
+            {{Form::submit('Atšaukti', ['class' => 'btn btn-danger'])}}
+            {!! Form::close() !!}
+            </td>
+             @else
               <td>
-                  @foreach ($categories as $category)
-                  @if ($category->events->find($event->id) && $category->judokas->find($judoka->id))
-                {{$category->name}}
-                @endif
-                @endforeach
-              </td>
-              <td>Užregistruotas <a class="btn btn-success" href="#" role="button">Spauzdinti</a></td>
-
-
-              @else
-              <td>
-                {!! Form::open(['action' => ['GroupsController@update', $event->id, $group->id, $judoka->id], 'method' => 'POST']) !!}   
+                {!! Form::open(['action' => ['CompetitorsController@store', $event->id, $group->id, $judoka->id], 'method' => 'POST']) !!}   
                 {{Form::select('category',$ports,['class' => 'form-control'])}}
-              </td><td>   
+              </td>
+              <td>Neužregistruotas</td>
+              <td>   
                 {{Form::hidden('_method', 'PUT')}}
                 {{Form::submit('Patvirtinti', ['class' => 'btn btn-primary'])}}
                 {!! Form::close() !!}</td>
-                </tr>   
-              @endif
+                </tr>
+                @endif   
 
         <?php $i = $i+1;
         ?>

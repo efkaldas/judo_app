@@ -13,11 +13,10 @@ class CreateCategoryJudokaTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_event_judoka', function (Blueprint $table) {
+        Schema::create('category_judoka', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('category_id')->unsigned();
-            $table->integer('event_id')->default('0');
-            $table->integer('judoka_id')->default('0');
+            $table->integer('judoka_id')->unsigned();
         });
     }
 
@@ -28,6 +27,6 @@ class CreateCategoryJudokaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_event_judoka');
+        Schema::dropIfExists('category_judoka');
     }
 }

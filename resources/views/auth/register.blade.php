@@ -38,6 +38,32 @@
                                  @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Šalis') }}</label>
+    
+                            <div class="col-md-6">
+                                 <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country">
+    
+                                 @error('country')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                 @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('Miestas') }}</label>
+    
+                            <div class="col-md-6">
+                                 <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="city">
+    
+                                 @error('city')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                 @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                                 <label for="club" class="col-md-4 col-form-label text-md-right">{{ __('Klubas/sporto mokykla') }}</label>

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand " href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            Varžybų registracijos sistema
+           <!--  config('app.name', 'Laravel')  -->
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -13,7 +14,6 @@
             </ul> -->
             @if (auth()->user())
                 
-            <div class="container">
             <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                       <a class="nav-link" href="/judokas">Mano sportininkai<span class="sr-only">(current)</span></a>
@@ -27,7 +27,6 @@
                     </li>                                           
                     @endif
                   </ul>
-                </div>
                 @endif
 
             <!-- Right Side Of Navbar -->

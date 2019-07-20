@@ -9,6 +9,8 @@ use App\Category;
 use App\User;
 use App\Event;
 use App\Judoka;
+use App\Competitor;
+use PDF;
 
 class GroupsController extends Controller
 {
@@ -28,14 +30,15 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($event)
     {
+        $event = Event::find($event);
         $array = array(
             'gender' => [null => 'pasirinkite lytį', 'vyras' => 'vyras', 'moteris' => 'moteris']
         );
 
         $categories = Category::all();
-        return view('groups.create')->with(['categories'=> $categories, 'ports'=> $array]);
+        return view('groups.create')->with(['event'=> $event,'categories'=> $categories, 'ports'=> $array]);
     }
 
     /**
@@ -44,7 +47,7 @@ class GroupsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $event)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -59,6 +62,7 @@ class GroupsController extends Controller
         $group->year_from = $request->input('year_from');
         $group->year_to = $request->input('year_to');
         $a=$request->input('category');
+        $group->event_id = $event;
         $cat = Category::find($a);
         $group->save();
         $group->categories()->attach($cat);
@@ -67,7 +71,7 @@ class GroupsController extends Controller
         $group->save();
 
         
-     return redirect('/groups')->with('success', 'Grupė sėkmingai sukurta!');
+     return redirect('/events')->with('success', 'Grupė sėkmingai sukurta!');
     }
 
     /**
@@ -122,11 +126,12 @@ class GroupsController extends Controller
     public function update(Request $request, $id, $group, $judoka)
     {
         $event = Event::find($id);
-        $groups = $event->groups()->find($group);
+        $groups = Group::find($group);
         $category = $request->input('category');
         $categoryf = $groups->categories()->find($category);
         $judokas = Judoka::find($judoka);
-        $categoryf->events()->attach($categoryf->id, ['event_id' => $event->id, 'judoka_id' => $judokas->id]); 
+        $categoryf->judokas()->attach($categoryf->id, ['category_id' => $categoryf->id,
+        'judoka_id' => $judokas->id]); 
       //  $categoryf->judokas()->sync($judokas);
        // $event->$groups->$categoryf;
 
@@ -134,6 +139,11 @@ class GroupsController extends Controller
        // $event->groups()->categories()->attach($judokas);
 
         return redirect('/events/'.$id.'/groups/'.$group)->with('success', 'Sportininkas sėkmingai užregistruotas!');
+    }
+    public function printPDF() {
+        $data = ['test'];
+        $pdf = PDF::loadView('competitors.printPDF', $data);
+        return $pdf->download('invoice.pdf');
     }
     
 

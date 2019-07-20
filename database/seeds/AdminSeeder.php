@@ -14,6 +14,8 @@ class AdminSeeder extends Seeder
         \App\User::create([
             'firstname' => 'Admin',
             'lastname' => 'Admin',
+            'country' => 'LTU',
+            'city' => 'Kaunas',
             'club' => 'Administrator',
             'phone' => '864361385',
             'email' => 'admin@admin.com',

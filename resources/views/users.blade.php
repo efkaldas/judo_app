@@ -17,18 +17,24 @@
 
                         <table class="table">
                             <tr>
-                                <th>User name</th>
-                                <th>Email</th>
-                                <th>Registered at</th>
+                                <th>Vardas</th>
+                                <th>Pavardė</th>
+                                <th>Klubas</th>
+                                <th>Eleketroninis paštas</th>
+                                <th>telefono nr.</th>
+                                <th>Registracijos data</th>
                                 <th></th>
                             </tr>
                             @forelse ($users as $user)
                                 <tr>
-                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->firstname }}</td>
+                                    <td>{{ $user->lastname }}</td>
+                                    <td>{{ $user->club }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
                                     <td>{{ $user->created_at }}</td>
                                     <td><a href="{{ route('admin.users.approve', $user->id) }}"
-                                           class="btn btn-primary btn-sm">Approve</a></td>
+                                           class="btn btn-primary btn-sm">Patvirtninti</a></td>
                                 </tr>
                             @empty
                                 <tr>

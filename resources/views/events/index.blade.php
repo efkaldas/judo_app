@@ -13,6 +13,16 @@
           <div class="card p-3 mb-2">
            <h3><a href="/events/{{$event->id}}">{{$event->name}}</a></h3>
            <p><small>{{$event->place}}, {{$event->date}}</small><p>
+            @if (auth()->user()->admin)
+                @if ($event->groups) 
+                @foreach ($event->groups as $group)
+                <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groups/{{$group->id}}" role="button">{{$group->name}}</a>
+                @endforeach           
+                @else
+                <p>Grupių nerasta</p> 
+                @endif
+               <div class="containter"><a class="btn btn-dark btn-lg pull-right" href="events/{{$event->id}}/groups/create" role="button">Pridėti grupę</a></div>
+               @endif
           </div>
 
         @endforeach

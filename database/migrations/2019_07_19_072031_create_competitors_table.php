@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventsAddonsTable extends Migration
+class CreateCompetitorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateEventsAddonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_group', function (Blueprint $table) {
+        Schema::create('competitors', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('judoka_id')->unsigned();
             $table->integer('category_id')->unsigned();
             $table->integer('group_id')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateEventsAddonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_group');
+        Schema::dropIfExists('competitors');
     }
 }

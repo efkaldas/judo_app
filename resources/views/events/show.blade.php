@@ -11,9 +11,13 @@
         <p>{{$event->description}}</p>
         <h2>Dalyvių registracija</h2>
         <p><small>Norėdami užregistruoti dalyvius spauskite ant grupės</small></p>
+        @if ($event->groups != null)
         @foreach ($event->groups as $group)
-                <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groups/{{$group->id}}" role="button">{{$group->name}}</a>
-        @endforeach       
+        <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groups/{{$group->id}}" role="button">{{$group->name}}</a>
+        @endforeach             
+        @else
+            <p>Grupių nerasta</p>
+        @endif     
     </div>
 
 

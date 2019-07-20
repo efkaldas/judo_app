@@ -46,19 +46,22 @@ class EventsController extends Controller
             'place' => 'required',
             'date' => 'required',
             'description' => 'required',
-            'group' => 'required'
+            'registration_start_date' => 'required',
+            'registration_start_time' => 'required',
+            'registration_end_time' => 'required',
+            'registration_end_time' => 'required'
         ]);
         $event = new Event;
         $event->name = $request->input('name');
         $event->place = $request->input('place');
         $event->date = $request->input('date');
         $event->description = $request->input('description');
-        $a=$request->input('group');
-        $cat = Group::find($a);
-        $event->save();
-        $event->groups()->attach($cat);
-
-
+        $start_date = $request->input('registration_start_date');
+        $start_time = $request->input('registration_start_time');
+        $end_date = $request->input('registration_end_date');
+        $end_time = $request->input('registration_end_time');
+        $event->registration_start = $start_date . " " . $start_time;
+        $event->registration_end = $end_date . " " . $end_time;
         $event->save();
 
         
@@ -67,13 +70,15 @@ class EventsController extends Controller
 
     public function get_export()
     {
+        $id = 2;
         $table = Cpmreport::all();
         $file = fopen('Output.csv', 'w');
-        foreach ($table as $row) {
-            fputcsv($file, $row->to_array());
-        }
-        fclose($file);
-        return Redirect::to('consolidated');
+       // foreach ($table as $row) {
+      //      fputcsv($file, $row->to_array());
+      //  }
+     //   fclose($file);
+        //return Redirect::to('consolidated');
+        //return Excel::download(new CompetitorsExport(2019), 'output.xlsx');
     }
 
     /**

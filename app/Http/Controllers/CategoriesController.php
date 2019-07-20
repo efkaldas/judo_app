@@ -74,7 +74,7 @@ class CategoriesController extends Controller
     public function update(Request $request, $id, $group, $category)
     {
         $event = Event::find($id);
-        $groups = $event->groups()->find($group);
+        $groups = Group::find($group);
         $category = $groups->find($category);
         $judoka = $request->input('judoka');
         $cat = Category::find($a);

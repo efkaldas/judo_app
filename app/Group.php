@@ -14,6 +14,10 @@ class Group extends Model
     }
     public function events()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Event::class);
+    }
+    public function competitors()
+    {
+        return $this->hasMany(Competitor::class);
     }
 }

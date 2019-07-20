@@ -11,7 +11,7 @@
 </div>
 <div class="container">
     <h1>Pridėti naują Grupę</h1>
-    {!! Form::open(['action' => 'GroupsController@store', 'method' => 'POST']) !!}
+    {!! Form::open(['action' => ['GroupsController@store', $event->id], 'method' => 'POST']) !!}
         <div class="form-group">
             {{Form::label('name', 'Pavadinimas')}}
             {{Form::text('name', '',['class' => 'form-control', 'placeholder' => 'Pavadinimas'])}}
@@ -38,5 +38,6 @@
         {{Form::submit('Pridėti', ['class' => 'btn btn-primary'])}}
     {!! Form::close() !!}
 </div>
+
     
 @endsection

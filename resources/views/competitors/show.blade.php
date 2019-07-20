@@ -4,6 +4,11 @@
     <h1>{{$event->name}}</h1>
     <h3>Užsiregistravę dalyviai</h3>
     <h3>Svorio kategorijos:</h3>
+    @if (auth()->user()->admin)
+    <div align="right">
+    <a href="/events/{{$event->id}}/competitors/1/excel" class="btn btn-success">Spauzdinti į failą</a>
+    </div>
+    @endif
     <?php
     $i = "a";
     ?>
@@ -17,14 +22,11 @@
                   </button>
                 </h5>
               </div>
-              <div align="center">
-                <a href="{{ route('competitors.excel') }}" class="btn btn-success">Export to Excel</a>
-              </div>
 
           
               <div id={{$group->name}} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                        @foreach ($event->categories as $category)
+                        @foreach ($group->categories as $category)
                         <?php
                         $i = $i ."a";
                         ?>
@@ -39,37 +41,37 @@
                                   </div>
                                   <div id={{$i}} class="collapse" aria-labelledby="headingTwo" data-parent="#accordionn">
                                         <div class="card-body">
-                                          @if (count($category->judokas) > 0)
+                                          @if (count($category->competitors->where('group_id', $group->id)) > 0) 
                                           <table id="aaa" class="table table-striped">
                                               <thead align="center"class="thead-dark">
                                                 <tr>
                                                   <th scope="col">Nr</th>
+                                                  <th scope="col">Šalis</th>
                                                   <th scope="col">Pavardė</th>
                                                   <th scope="col">Vardas</th>
                                                   <th scope="col">Gimimo metai</th>
                                                   <th scope="col">Lytis</th>
-                                                  <th scope="col">Funkcijos</th>
+                                                  <th scope="col">Klubas</th>
                                                 </tr>
                                               </thead>
                                               <tbody align="center">
                                                 <?php $b = 1;
                                                 ?>
-                                                  
-                                              @foreach ($event->judokas as $judoka)
+                                              @foreach ($category->competitors as $judoka)
+                                              @if ($group->competitors->find($judoka->id))
                                               <tr>
-                                                @if ($judoka->events->find($event->id))
-                                                  
+                                                    
                                               <th scope="row">{{$b}}</th>
-                                                  <td>{{$judoka->lastname}}</td>
-                                                  <td>{{$judoka->firstname}}</td>
-                                                  <td>{{$judoka->birthyear}}</td>
-                                                  <td>{{$judoka->gender}}</td>
-                                                  <td>
-                                                  </td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->user->name}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->lastname}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->firstname}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->birthyear}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->gender}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->user->club}}</td>
                                               </tr>
                                               <?php $b = $b+1;
                                               ?>
-                                              @endif
+                                                @endif
                                               @endforeach
                                               </tbody>
                                               </table>
@@ -81,12 +83,6 @@
                                         </div>
                                      </div>
                 @endforeach
-
-
-                                  
-                                  
-                                  
-
               </div>
             </div>
         </div>

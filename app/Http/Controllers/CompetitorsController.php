@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Group;
+use App\Competitor;
 use App\Category;
 use App\User;
 use App\Event;
@@ -40,9 +41,16 @@ class CompetitorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $event, $group, $judoka)
     {
-        //
+        $competitor = new Competitor;
+        $competitor->judoka_id = $judoka;
+        $competitor->category_id = $request->input('category');
+        $competitor->group_id = $group;
+
+        $competitor->save();
+
+        return redirect('/events/'.$event.'/groups/'.$group)->with('success', 'Sportininkas sėkmingai užregistruotas!');
     }
 
     /**
@@ -54,13 +62,14 @@ class CompetitorsController extends Controller
     public function show($event,$id)
     {
         $eventt = Event::find($event);
+        $competitors = Competitor::all();
+        $judokas = Judoka::all();
 
-        return view('competitors.show')->with('event',$eventt);
+        return view('competitors.show')->with(['event'=>$eventt, 'competitors'=>$competitors, 'judokas'=>$judokas]);
     }
     function excel($id)
     {
-
-            return Excel::download(new CompetitorsExport($id), 'users.xlsx');
+        return Excel::download(new CompetitorsExport($id), 'users.xlsx');
     }
 
 
@@ -93,8 +102,11 @@ class CompetitorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($a, $b, $id)
     {
-        //
+        $competitor = Competitor::find($id);
+        $competitor->delete();
+
+        return redirect()->back()->with('success', 'Sportininko registrcija pašalinta');
     }
 }
