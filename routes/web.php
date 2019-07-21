@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('events/{event}/competitors/{id}', 'CompetitorsController@show');
         Route::delete('events/{id}/groups/{group}/{judoka}', 'CompetitorsController@destroy');
         Route::put('events/{id}/groups/{group}/{judoka}', 'CompetitorsController@store');
-        Route::get('events/{id}/groups/{group}/{judoka}/pdf', 'GroupsController@printPDF');
+        Route::get('events/{id}/groups/{group}/{competitor}/pdf', 'GroupsController@printPDF');
 
 Route::get('events/{event}/competitors/{id}/excel', 'CompetitorsController@excel')->name('competitors.excel');
     });

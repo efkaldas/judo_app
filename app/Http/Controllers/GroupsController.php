@@ -140,10 +140,13 @@ class GroupsController extends Controller
 
         return redirect('/events/'.$id.'/groups/'.$group)->with('success', 'Sportininkas sėkmingai užregistruotas!');
     }
-    public function printPDF() {
+    public function printPDF($event_id, $group_id, $competitor_id) {
+        $competitor = Competitor::find($competitor_id);   
+        $event = Event::find($event_id);  
+        $group = Group::find($group_id);    
         $data = ['test'];
-        $pdf = PDF::loadView('competitors.printPDF', $data);
-        return $pdf->download('invoice.pdf');
+        $pdf = PDF::loadView('competitors.printPDF', compact('competitor', 'event', 'group'));
+        return $pdf->download('dalyvis'. $competitor_id.'pdf');
     }
     
 
