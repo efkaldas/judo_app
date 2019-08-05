@@ -18,6 +18,7 @@ class CreateCompetitorsTable extends Migration
             $table->integer('judoka_id')->unsigned();
             $table->integer('category_id')->unsigned();
             $table->integer('group_id')->unsigned();
+            $table->integer('event_id')->unsigned();
             $table->timestamps();
         });
     }

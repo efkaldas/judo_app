@@ -16,4 +16,8 @@ class Event extends Model
     {
         return $this->belongsToMany('App\Category', 'competitions')->withPivot('category_id'); 
     }
+    public function competitors()
+    {
+        return $this->hasMany(Competitor::class);
+    }
 }

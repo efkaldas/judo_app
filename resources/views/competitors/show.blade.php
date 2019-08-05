@@ -16,12 +16,19 @@
     <div id="accordion">
             <div class="card">
               <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#{{$group->name}}" aria-expanded="true" aria-controls="collapseOne">
-                    {{$group->name}}
-                  </button>
-                </h5>
+                <div class="row">
+                    <div class="col">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#{{$group->name}}" aria-expanded="true" aria-controls="collapseOne">
+                          {{$group->name}}
+                    </div>
+                        </button>
+                      </h5>
+                    <div class="col">
+                      <p align="right">Dalyvių skaičius: {{count($group->competitors)}}</p>
+                    </div>
               </div>
+            </div>
 
           
               <div id={{$group->name}} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -33,12 +40,19 @@
                         <div id="accordionn">
                                 <div class="card">
                                   <div class="card-header" id="headingTwo">
-                                    <h5 class="mb-0">
-                                      <button class="btn btn-link" data-toggle="collapse" data-target="#{{$i}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <div class="row">
+                                      <div class="col">
+                                        <h5 class="mb-0">
+                                          <button class="btn btn-link" data-toggle="collapse" data-target="#{{$i}}" aria-expanded="true" aria-controls="collapseOne">
                                             {{$category->name}}
-                                      </button>
-                                    </h5>
-                                  </div>
+                                          </button>
+                                      </div>
+                                        </h5>
+                                      <div class="col">
+                                        <p align="right">Dalyvių skaičius: {{count($category->competitors->where('group_id', $group->id))}}</p>
+                                      </div>
+                                    </div>
+                                </div>
                                   <div id={{$i}} class="collapse" aria-labelledby="headingTwo" data-parent="#accordionn">
                                         <div class="card-body">
                                           @if (count($category->competitors->where('group_id', $group->id)) > 0) 
@@ -62,7 +76,7 @@
                                               <tr>
                                                     
                                               <th scope="row">{{$b}}</th>
-                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->user->name}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->user->country}}</td>
                                                   <td>{{$judokas->where('id', $judoka->judoka_id)->first()->lastname}}</td>
                                                   <td>{{$judokas->where('id', $judoka->judoka_id)->first()->firstname}}</td>
                                                   <td>{{$judokas->where('id', $judoka->judoka_id)->first()->birthyear}}</td>

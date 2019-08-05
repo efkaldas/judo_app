@@ -18,4 +18,8 @@ class Competitor extends Model
     {
         return $this->belongsTo(Group::class, 'group_id');
     }
+    public function events()
+    {
+        return $this->belongsTo(Group::class, 'event_id');
+    }
 }

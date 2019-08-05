@@ -47,6 +47,7 @@ class CompetitorsController extends Controller
         $competitor->judoka_id = $judoka;
         $competitor->category_id = $request->input('category');
         $competitor->group_id = $group;
+        $competitor->event_id = $event;
 
         $competitor->save();
 

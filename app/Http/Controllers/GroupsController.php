@@ -113,7 +113,17 @@ class GroupsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $group = Group::find($id);
+
+        $array = array(
+            'gender' => [$group->gender => $group->gender, 'vyras' => 'vyras', 'moteris' => 'moteris']
+        );
+
+        $categories = Category::all();
+        $groupCat = $group->categories();
+
+        return view('groups.edit')->with(['group'=> $group,'categories'=> $categories, 'ports'=> $array, 
+        'groupCat'=>$groupCat]);
     }
 
     /**
@@ -123,22 +133,27 @@ class GroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $group, $judoka)
+    public function update(Request $request, $id)
     {
-        $event = Event::find($id);
-        $groups = Group::find($group);
-        $category = $request->input('category');
-        $categoryf = $groups->categories()->find($category);
-        $judokas = Judoka::find($judoka);
-        $categoryf->judokas()->attach($categoryf->id, ['category_id' => $categoryf->id,
-        'judoka_id' => $judokas->id]); 
-      //  $categoryf->judokas()->sync($judokas);
-       // $event->$groups->$categoryf;
+        $this->validate($request, [
+            'name' => 'required',
+            'gender' => 'required',
+            'year_from' => 'required',
+            'year_to' => 'required',
+            'category' => 'required'
+        ]);
+        $group = Group::find($id);
+        $group->name = $request->input('name');
+        $group->gender = $request->input('gender');
+        $group->year_from = $request->input('year_from');
+        $group->year_to = $request->input('year_to');
+        $a=$request->input('category');
+        $cat = Category::find($a);
+        $group->categories()->detach();
+        $group->save();
+        $group->categories()->attach($cat);
 
-
-       // $event->groups()->categories()->attach($judokas);
-
-        return redirect('/events/'.$id.'/groups/'.$group)->with('success', 'Sportininkas sėkmingai užregistruotas!');
+        return redirect('/events/'.$group->event_id.'/groupsInfo/'.$group->id)->with('success', 'Grupės informacija sėkmingai pakeista');
     }
     public function printPDF($event_id, $group_id, $competitor_id) {
         $competitor = Competitor::find($competitor_id);   
@@ -156,8 +171,11 @@ class GroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($event, $id)
     {
-        //
+        $group = Group::find($id);
+        $group->delete();
+
+        return redirect('/events')->with('success', 'Grupė pašalinta');
     }
 }

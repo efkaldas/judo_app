@@ -21,11 +21,6 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/events">Varžybų sąrašas<span class="sr-only">(current)</span></a>
                     </li>
-                    @if (auth()->user()->admin)
-                    <li class="nav-item active">
-                      <a class="nav-link" href="/groups">Amžiaus grupės<span class="sr-only">(current)</span></a>
-                    </li>                                           
-                    @endif
                   </ul>
                 @endif
 
@@ -45,17 +40,22 @@
                 @if (auth()->user()->admin)
                 <li class="nav-item active">
                   <a class="nav-link" href="/users">Klubų tvirtinimas<span class="sr-only">(current)</span></a>
-                </li>                                           
+                </li>                                         
                 @endif
-
-
-
-                            <a class="btn btn-primary" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Atsijungti') }}
-                            </a>
-
+                <li class="nav-item dropdown active">                    
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/images/avatars/{{ auth()->user()->avatar }}" style="width:27px; height:27px;  top:1px; left:20px; border-radius:50%">
+                                {{auth()->user()->club}}<span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown03">
+                            <a class="dropdown-item" href="/profile">Profilis</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        <i class="fab fa-accusoft"></i>
+                                 {{ ('Atsijungti') }}
+                             </a>
+                        </div>
+                      </li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>

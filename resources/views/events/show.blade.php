@@ -17,12 +17,24 @@
         @endif
         <p><small>Norėdami užregistruoti dalyvius spauskite ant grupės</small></p>
         @if ($event->groups != null)
+        @if (now() < $event->registration_start)
+        <p class="text-danger">Registracija dar neprasidėjo!</p>
             @foreach ($event->groups as $group)
-                <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groups/{{$group->id}}" role="button">{{$group->name}}</a>
-            @endforeach             
+                <a class="btn btn-primary btn-lg disabled" href="/events/{{$event->id}}/groups/{{$group->id}}" aria-disabled="true" role="button">{{$group->name}}</a>
+            @endforeach   
+        @elseif(now() > $event->registration_end) 
+        <p class="text-danger">Registracija baigėsi!</p>
+        @foreach ($event->groups as $group)
+            <a class="btn btn-primary btn-lg disabled" href="/events/{{$event->id}}/groups/{{$group->id}}" aria-disabled="true" role="button">{{$group->name}}</a>
+        @endforeach
+        @else
+        @foreach ($event->groups as $group)
+        <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groups/{{$group->id}}" role="button">{{$group->name}}</a>
+        @endforeach 
+        @endif      
         @else
             <p>Grupių nerasta</p>
-        @endif     
+        @endif    
     </div>
 
 

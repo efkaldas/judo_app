@@ -18,6 +18,7 @@ Route::resource('judokas', 'JudokasController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/events/{id}', 'EventsController@show');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/approval', 'JudokasController@approval')->name('approval');
@@ -25,9 +26,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['approved'])->group(function () {
         Route::get('/judokas', 'JudokasController@index')->name('home');
         Route::resource('events/{event}/groups', 'GroupsController');
-        Route::resource('events', 'EventsController');
         Route::get('events/{id}/groups/{group}', 'GroupsController@show');
      //   Route::put('events/{id}/groups/{group}/{judoka}', 'GroupsController@update');
+     Route::resource('events', 'EventsController');
         Route::get('groupsInfo/{id}', 'GroupsController@showCat');
         Route::get('events/{event}/competitors/{id}', 'CompetitorsController@show');
         Route::delete('events/{id}/groups/{group}/{judoka}', 'CompetitorsController@destroy');
@@ -35,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('events/{id}/groups/{group}/{competitor}/pdf', 'GroupsController@printPDF');
 
 Route::get('events/{event}/competitors/{id}/excel', 'CompetitorsController@excel')->name('competitors.excel');
+        Route::get('profile', 'UserController@profile');
+        Route::post('profile', 'UserController@update_avatar');
     });
     Route::middleware(['admin'])->group(function () {
         Route::get('/users', 'UserController@index')->name('admin.users.index');
