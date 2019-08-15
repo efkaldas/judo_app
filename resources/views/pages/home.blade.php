@@ -21,13 +21,11 @@
                   </div>
               </div>
            <p><small>{{$event->place}}, {{$event->date}}</small><p>
-                @if ($event->groups) 
-                @foreach ($event->groups as $group)
-                <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groupsInfo/{{$group->id}}" role="button">{{$group->name}}</a>
-                @endforeach           
-                @else
-                <p>Grupių nerasta</p> 
-                @endif
+            @if (now() < $event->registration_start)
+                <p class="text-danger">Registracijos pradžia: {{ chop($event->registration_start, ":00") }}</p>           
+            @else
+                <p class="text-danger">Registracijos pabaiga: {{ chop($event->registration_end, ":00") }}</p> 
+            @endif
           </div>
 
         @endforeach

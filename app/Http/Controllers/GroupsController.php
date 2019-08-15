@@ -153,7 +153,7 @@ class GroupsController extends Controller
         $group->save();
         $group->categories()->attach($cat);
 
-        return redirect('/events/'.$group->event_id.'/groupsInfo/'.$group->id)->with('success', 'Grupės informacija sėkmingai pakeista');
+        return redirect('/groupsInfo/'.$group->id)->with('success', 'Grupės informacija sėkmingai pakeista');
     }
     public function printPDF($event_id, $group_id, $competitor_id) {
         $competitor = Competitor::find($competitor_id);   

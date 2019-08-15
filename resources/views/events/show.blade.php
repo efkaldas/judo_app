@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="text-right">
+        <button onclick="goBack()"class="btn btn-light border">Atgal</button>
+    <script>
+            function goBack() {
+              window.history.back();
+            }
+            </script>
+</div>
 <h1>{{$event->name}}</h1>
 <p><small>{{$event->place}}, {{$event->date}}</small></p>
 <div class="float-right">

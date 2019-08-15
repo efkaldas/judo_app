@@ -10,10 +10,9 @@ use App\Group;
 class PagesController extends Controller
 {
     public function index() {
-        $event = Event::all();
-        $group = Group::all();
+        $event = Event::orderBy('date', 'desc')->paginate(7);
         $skaičius = 0;
-        return view('pages.home')->with(['events' => $event, 'groups' => $group]);
+        return view('pages.home')->with('events', $event);
     }
     public function about() {
         return view('pages.about');

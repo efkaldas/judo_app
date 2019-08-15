@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Users List to Approve</div>
+                    <div class="card-header">Klubai laukiantys patvirtinimo</div>
 
                     <div class="card-body">
 

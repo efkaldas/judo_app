@@ -16,7 +16,7 @@
             @if (auth()->user() && auth()->user()->admin)
                 @if ($event->groups) 
                 @foreach ($event->groups as $group)
-                <a class="btn btn-primary btn-lg" href="/events/{{$event->id}}/groupsInfo/{{$group->id}}" role="button">{{$group->name}}</a>
+                <a class="btn btn-primary btn-lg" href="groupsInfo/{{$group->id}}" role="button">{{$group->name}}</a>
                 @endforeach           
                 @else
                 <p>Grupių nerasta</p> 
