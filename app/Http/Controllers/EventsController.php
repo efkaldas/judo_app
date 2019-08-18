@@ -45,6 +45,8 @@ class EventsController extends Controller
             'name' => 'required',
             'place' => 'required',
             'date' => 'required',
+            'time' => 'required',
+            'entry_fee' => 'required',
             'description' => 'required',
             'registration_start_date' => 'required',
             'registration_start_time' => 'required',
@@ -55,6 +57,8 @@ class EventsController extends Controller
         $event->name = $request->input('name');
         $event->place = $request->input('place');
         $event->date = $request->input('date');
+        $event->time = $request->input('time');
+        $event->entry_fee = $request->input('entry_fee');
         $event->description = $request->input('description');
         $start_date = $request->input('registration_start_date');
         $start_time = $request->input('registration_start_time');

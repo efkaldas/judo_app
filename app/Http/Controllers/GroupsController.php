@@ -54,6 +54,11 @@ class GroupsController extends Controller
             'gender' => 'required',
             'year_from' => 'required',
             'year_to' => 'required',
+            'start_date' => 'required',
+            'start_time' => 'required',
+            'weight_date' => 'required',
+            'weight_time_from' => 'required',
+            'weight_time_to' => 'required',
             'category' => 'required'
         ]);
         $group = new Group;
@@ -61,6 +66,11 @@ class GroupsController extends Controller
         $group->gender = $request->input('gender');
         $group->year_from = $request->input('year_from');
         $group->year_to = $request->input('year_to');
+        $group->start_date = $request->input('start_date');
+        $group->start_time = $request->input('start_time');
+        $group->weight_date = $request->input('weight_date');
+        $group->weight_time_from = $request->input('weight_time_from');
+        $group->weight_time_to = $request->input('weight_time_to');
         $a=$request->input('category');
         $group->event_id = $event;
         $cat = Category::find($a);

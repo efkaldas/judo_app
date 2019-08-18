@@ -42,7 +42,11 @@
                             <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Šalis') }}</label>
     
                             <div class="col-md-6">
-                                 <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country">
+                                 <select id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}" required autocomplete="country">
+                                    @foreach ($countries as $counttry)
+                                        <option class="flag" value={{$counttry["name"]}}>{!!country("eg")->getFlag()!!}{{$counttry["iso_3166_1_alpha3"]}}</option>
+                                    @endforeach
+                                 </select>
     
                                  @error('country')
                                     <span class="invalid-feedback" role="alert">

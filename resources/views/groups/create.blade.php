@@ -21,12 +21,44 @@
             {{Form::select('gender',$ports['gender'],null,['class' => 'form-control'])}}
         </div>
         <div class="form-group">
-            {{Form::label('year_from', 'Metai nuo')}}
-            {{Form::text('year_from', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+            <div class="row">
+                <div class="column" style="margin-left: 15px">
+                    {{Form::label('year_from', 'Metai nuo')}}
+                    {{Form::text('year_from', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                </div>
+                <div class="column" style="margin-left: 15px">
+                    {{Form::label('year_to', 'Metai iki')}}
+                    {{Form::text('year_to', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                </div>
+            </div>
         </div>
         <div class="form-group">
-            {{Form::label('year_to', 'Metai iki')}}
-            {{Form::text('year_to', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+            <div class="row">
+                <div class="column" style="margin-left: 15px">
+                    {{Form::label('start_date', 'Varžybų data')}}
+                    {{Form::date('start_date', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                </div>
+                <div class="column" style="margin-left: 35px">
+                    {{Form::label('start_time', 'laikas')}}
+                    {{Form::time('start_time', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{Form::label('weight_date', 'Svėrimo data')}}
+            {{Form::date('weight_date', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="column" style="margin-left: 15px">
+                    {{Form::label('weight_time_from', 'Svėrimo pradžia')}}
+                    {{Form::time('weight_time_from', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                </div>
+                <div class="column" style="margin-left: 35px">
+                    {{Form::label('weight_time_to', 'Svėrimo pabaiga')}}
+                    {{Form::time('weight_time_to', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                 </div>
+            </div>
         </div>
         <div class="form-group">
             {{Form::label('', 'Kategorijos')}}<br>

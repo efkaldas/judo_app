@@ -34,11 +34,19 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @return voi
      */
     public function __construct()
     {
         $this->middleware('guest');
+    }
+    public function index()
+    {
+    }
+    public function showRegistrationForm()
+    {
+        $countries = countries();
+        return view('auth.register')->with('countries', $countries);
     }
 
     /**

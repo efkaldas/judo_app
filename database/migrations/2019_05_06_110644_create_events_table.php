@@ -18,6 +18,8 @@ class CreateEventsTable extends Migration
             $table->string('name');
             $table->string('place');
             $table->date('date');
+            $table->time('time');
+            $table->decimal('entry_fee');
             $table->text('description');
             $table->dateTime('registration_start');
             $table->dateTime('registration_end');

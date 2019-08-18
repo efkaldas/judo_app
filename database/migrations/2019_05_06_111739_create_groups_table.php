@@ -19,6 +19,11 @@ class CreateGroupsTable extends Migration
             $table->string('gender');
             $table->integer('year_from');
             $table->integer('year_to');
+            $table->date('start_date');
+            $table->time('start_time');
+            $table->date('weight_date');
+            $table->time('weight_time_from');
+            $table->time('weight_time_to');
             $table->integer('event_id')->unsigned();
         });
     }

@@ -31,9 +31,31 @@
          @enderror
         </div>
         <div class="form-group">
-            {{Form::label('date', 'Data')}}
-            {{Form::date('date', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
-            @error('date')
+            <div class="row">
+                <div class="column" style="margin-left: 15px">
+                    {{Form::label('date', 'Varžybų data')}}
+                    {{Form::date('date', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                    @error('date')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                 @enderror
+                </div>
+                <div class="column" style="margin-left: 35px">
+                    {{Form::label('time', 'laikas')}}
+                    {{Form::time('time', '',['class' => 'form-control', 'placeholder' => '0000/00/00'])}}
+                    @error('time')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                 @enderror
+                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{Form::label('entry_fee', 'Starto mokestis')}}
+            {{Form::text('entry_fee', '',['class' => 'form-control', 'placeholder' => 'Starto mokestis'])}}
+            @error('entry_fee')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

@@ -15,6 +15,7 @@ class PagesController extends Controller
         return view('pages.home')->with('events', $event);
     }
     public function about() {
-        return view('pages.about');
+        $a = countries();
+        return view('pages.about')->with('a', $a);
     }
 }

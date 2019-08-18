@@ -73,12 +73,6 @@ body {
   color: #212529;
   text-align: left;
   background-color: #f8fafc;
-  background-image: url("/images/background.jpg");
-  background-blend-mode: overlay;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center; 
-
 }
 
 [tabindex="-1"]:focus {
@@ -10673,8 +10667,12 @@ a.text-dark:focus {
   width: 1%;
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+.flag svg {
+  width: 10px;
+  height: 10px;
+}
+
+body {
+  background-image: url("/public/images/background.jpg");
 }
 
