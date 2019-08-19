@@ -49,3 +49,8 @@ Route::get('events/{event}/competitors/{id}/excel', 'CompetitorsController@excel
 
 });
 Route::get('/events/{id}', 'EventsController@show');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
