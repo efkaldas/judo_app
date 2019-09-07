@@ -22,6 +22,9 @@
     ?>
     @foreach ($event->groups as $group)
     <div id="accordion">
+        <?php
+        $i = $group->name;
+        ?>
             <div class="card">
               <div class="card-header" id="headingOne">
                 <div class="row">
@@ -84,7 +87,7 @@
                                               <tr>
                                                     
                                               <th scope="row">{{$b}}</th>
-                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->user->country}}</td>
+                                                  <td>{{$judokas->where('id', $judoka->judoka_id)->first()->user->country}}/{{$judokas->where('id', $judoka->judoka_id)->first()->user->city}}</td>
                                                   <td>{{$judokas->where('id', $judoka->judoka_id)->first()->lastname}}</td>
                                                   <td>{{$judokas->where('id', $judoka->judoka_id)->first()->firstname}}</td>
                                                   <td>{{$judokas->where('id', $judoka->judoka_id)->first()->birthyear}}</td>
@@ -108,7 +111,7 @@
               </div>
             </div>
         </div>
-    </div>
+    </div><br>
         @endforeach
 
 

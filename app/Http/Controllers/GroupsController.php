@@ -171,7 +171,7 @@ class GroupsController extends Controller
         $group = Group::find($group_id);    
         $data = ['test'];
         $pdf = PDF::loadView('competitors.printPDF', compact('competitor', 'event', 'group'));
-        return $pdf->download('dalyvis'. $competitor_id.'pdf');
+        return $pdf->download('dalyvis'. $competitor_id.'.pdf');
     }
     
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Event;
 use App\Group;
 use App\Category;
+use App\Competitor;
+use App\Judoka;
 
 
 
@@ -31,6 +33,15 @@ class EventsController extends Controller
     {
         $groups = Group::all();
         return view('events.create')->with('groups', $groups);       
+    }
+    public function myCompetitors($id)
+    {
+        $event = Event::find($id);
+        $eventt = Event::find($event);
+        $competitors = Competitor::where('Event_id', '=', $id);
+        $judokas = Judoka::all();
+
+        return view('events.myCompetitors')->with(['event'=>$event, 'competitors'=>$competitors, 'judokas'=>$judokas]);
     }
 
     /**

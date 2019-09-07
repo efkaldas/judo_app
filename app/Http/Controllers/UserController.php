@@ -36,7 +36,7 @@ class UserController extends Controller
         if($request->hasFile('avatar'))
         {
             $avatar = $request->file('avatar');
-            $filename =  $user->club . '.' . $avatar->getClientOriginalExtension();
+            $filename =  str_replace('/', '', $user->club) . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->resize(300, 300)->save(public_path(('images/avatars/' . $filename)));
 
             $user->avatar = $filename;

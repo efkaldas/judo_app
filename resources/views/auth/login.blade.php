@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Prisijungimas') }}</div>
+                <div class="card-header">{{ __('words.log_in') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Elektroninis paštas</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('words.mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Slaptažodis</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('words.password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -45,7 +45,7 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Įsiminti') }}
+                                        {{ __('words.remember') }}
                                     </label>
                                 </div>
                             </div>
@@ -54,12 +54,12 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Prisijungti') }}
+                                    {{ __('words.log_in') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Pamiršote slaptažodį?') }}
+                                        {{ __('words.forgot_password') }}
                                     </a>
                                 @endif
                             </div>

@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('locale/{locale}', function ($locale){
+    Session::put('locale', $locale);
+    return redirect()->back();
+});
 
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
@@ -31,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('events/{event}/competitors/{id}', 'CompetitorsController@show');
         Route::put('events/{id}/groups/{group}/{judoka}', 'CompetitorsController@store');
         Route::get('events/{id}/groups/{group}/{competitor}/pdf', 'GroupsController@printPDF');
+        Route::delete('events/{id}/groups/{group}/{judoka}', 'CompetitorsController@destroy');
+        Route::get('events/{id}/myCompetitors', 'EventsController@myCompetitors');
 
 Route::get('events/{event}/competitors/{id}/excel', 'CompetitorsController@excel')->name('competitors.excel');
         Route::get('profile', 'UserController@profile');
@@ -41,7 +47,6 @@ Route::get('events/{event}/competitors/{id}/excel', 'CompetitorsController@excel
         Route::get('/users/{user_id}/approve', 'UserController@approve')->name('admin.users.approve');
         Route::get('/events/create', 'EventsController@create');
         Route::post('/events', 'EventsController@store');
-        Route::delete('events/{id}/groups/{group}/{judoka}', 'CompetitorsController@destroy');
         Route::get('/groups/{id}/edit', 'GroupsController@edit');
         Route::put('/groups/{id}', 'GroupsController@update');
         Route::get('groupsInfo/{id}', 'GroupsController@showCat');
